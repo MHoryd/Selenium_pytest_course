@@ -1,8 +1,8 @@
-from xml.sax.handler import property_dom_node
 from pypom import Page
 from config import config
 from selenium.webdriver.support.wait import WebDriverWait
 from pages.regions.menu_region import MenuRegion
+from pages.regions.footer_region import FooterRegion
 
 class BasePage(Page):
     def __init__(self, driver, **url_kwargs):
@@ -13,3 +13,7 @@ class BasePage(Page):
     @property
     def menu(self):
         return MenuRegion(self)
+    
+    @property
+    def footer(self):
+        return FooterRegion(self)
