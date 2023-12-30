@@ -6,6 +6,7 @@ class MenuRegion(BaseRegion):
     _store_button = (By.XPATH, ".//li[@id='menu-item-102']/a[contains(text(),'Sklep')]")
     _amount_to_pay = (By.CSS_SELECTOR,"a[class='cart-contents'] span[class='woocommerce-Price-amount amount']")
     
+    @property
     def amount(self):
         value = self.find_element(*self._amount_to_pay).text
         return value[1:]
@@ -14,3 +15,15 @@ class MenuRegion(BaseRegion):
         self.find_element(*self._store_button).click()
         return self
     
+    def menu_pop_up(self):
+        amount_element = self.find_element(*self._amount_to_pay)
+        self.action.move_to_element(amount_element).perform()
+        return CartPopUpRegion(self)
+    
+class CartPopUpRegion(BaseRegion):
+    _root_locator = (By.CSS_SELECTOR,"div[class='widget woocommerce widget_shopping_cart']")
+    _view_cart_button = (By.XPATH,".//a[contains(text(), 'Zobacz koszyk')]")
+    
+    def go_to_the_cart(self):
+        self.find_element(*self._view_cart_button).click()
+        return self

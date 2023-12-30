@@ -23,7 +23,7 @@ class StorePage(BasePage):
         find_item_by_name(item_name, self.items).click_add_to_cart_button()
         
         menu = MenuRegion(self)
-        self.wait.until(lambda page: menu.amount == "0,00", "Invalid price value in cart after adding item")
+        self.wait.until(lambda page: menu.amount != "0,00", "Invalid price value in cart after adding item")
     
     
 class Item(BaseRegion):
