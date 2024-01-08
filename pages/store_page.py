@@ -1,4 +1,3 @@
-import time
 from pages.base_page import BasePage
 from pages.regions.base_region import BaseRegion
 from pages.regions.menu_region import MenuRegion
