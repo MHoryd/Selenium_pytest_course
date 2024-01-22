@@ -2,4 +2,4 @@
 base_url: "https://tapsshop.pl/"
 max_wait: 8
 headless: true
-fullcreen: false
+fullcreen: true

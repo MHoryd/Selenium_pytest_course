@@ -17,6 +17,7 @@ class CheckoutPage(BasePage):
     _place_order_button  = (By.CSS_SELECTOR,"button[name*='place_order']")
     _payment_blocker = (By.CSS_SELECTOR,"div[id='payment'] div[class='blockUI blockOverlay']")
     _success_message = (By.CSS_SELECTOR,"p[class*='woocommerce-notice--success']")
+    _no_email_message = (By.CSS_SELECTOR,"ul[class='woocommerce-error'] li[data-id='billing_email']")
     
     @property
     def loaded(self):
@@ -49,6 +50,10 @@ class CheckoutPage(BasePage):
     def fill_email_adress(self, email_adress):
         self.find_element(*self._email_adress).send_keys(email_adress)
         return self
+    
+    def clear_email_adress(self):
+        self.find_element(*self._email_adress).clear()
+        return self
 
     def click_place_order_button(self):
         self.wait.until(self.ec.invisibility_of_element(self._payment_blocker))
@@ -58,4 +63,9 @@ class CheckoutPage(BasePage):
     def verify_success_message(self):
         message = self.wait.until(self.ec.visibility_of_element_located(self._success_message))
         assert message.text == "Dziękujemy. Otrzymaliśmy Twoje zamówienie."
+        return self
+
+    def verify_no_email_message(self):
+        message = self.wait.until(self.ec.visibility_of_element_located(self._no_email_message))
+        assert message.text == "Adres e-mail płatnika jest wymaganym polem."
         return self
